@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eid Mubarak 🌙</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Indie+Flower&family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<audio id="bgMusic" src="assets/audio/bg-music.mp3" loop></audio>
+
+<section class="page active" id="page0" onclick="handlePage0Click()">
+  <div class="video-container">
+    
+    <div class="video-wrapper">
+      <video id="introVideo" src="assets/videos/intro.webm" playsinline></video>
+      <div id="page0Hint" class="play-hint">Tap 👆</div>
+    </div>
+    
+  </div>
+</section>
+
+  <!-- PAGE 1 -->
+  <section class="page" id="page1">
+
+<div id="page1Emoji" style="font-size: 3.5rem; margin-bottom: 5px; line-height: 1;">🌙</div>
+    <h1 class="page1-line">Eid K Chand Ko Dhundo</h1>
+    <p class="page1-line">Chand Ko Reveal Karny K Liye Clouds Prr Click Karo ✨</p>
+
+    <!-- CLOUD AREA -->
+    <div class="scene">
+      <div class="item" style="top: -10%; left: 45%;">
+        <img src="assets/images/cloud1.png" class="cloud" onclick="reveal(this)">
+      </div>
+      <div class="item" style="top: 0%; left: 12%;">
+        <img src="assets/images/cloud2.png" class="cloud" onclick="reveal(this)">
+      </div>
+      <div class="item" style="top: 30%; left: 45%;">
+        <img src="assets/images/cloud3.png" class="cloud" onclick="reveal(this)">
+      </div>
+      <div class="item" style="top: 40%; left: 15%;">
+        <img src="assets/images/cloud4.png" class="cloud" onclick="reveal(this)">
+      </div>
+      <img src="assets/images/reveal.png" alt="reveal" id="revealImage" class="reveal-img">
+    </div>
+
+    <button id="page1Btn" onclick="nextPage(1)">Mera Gift Do 😏🎁</button>
+
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page" id="page2">
+
+    <div class="page2-top">
+      <h1 class="page2-title">Open Your Gift 🎁</h1>
+      <div class="dua-paper hidden" id="duaPaper">
+        <p>Eid k mauqay prr aap k liye bohat saari dua 🤲</p>
+      </div>
+    </div>
+
+    <div class="video-stage" id="videoStage">
+      <video id="video1" playsinline muted>
+        <source src="assets/videos/video1.webm" type="video/webm">
+        <source src="assets/videos/video1.mov" type="video/mp4; codecs=hvc1">
+      </video>
+      <video id="video2" playsinline muted loop class="hidden">
+        <source src="assets/videos/video2.webm" type="video/webm">
+        <source src="assets/videos/video2.mov" type="video/mp4; codecs=hvc1">
+      </video>
+      <video id="video3" playsinline muted class="hidden">
+        <source src="assets/videos/video3.webm" type="video/webm">
+        <source src="assets/videos/video3.mov" type="video/mp4; codecs=hvc1">
+      </video>
+    </div>
+
+    <button id="page2Btn" onclick="nextPage(2)">Send me dua 🤲</button>
+
+  </section>
+
+  <!-- PAGE 3 -->
+  <section class="page" id="page3">
+
+    <h1 class="page3-title">Dua 🤲</h1>
+
+    <div class="tap-wrapper">
+      <svg class="progress-ring" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+        <circle class="ring-track" cx="70" cy="70" r="60"/>
+        <circle class="ring-fill" id="ringFill" cx="70" cy="70" r="60"/>
+      </svg>
+      <button class="tap-btn" id="tapBtn" onclick="handleTap()">
+        <img src="assets/images/tap-icon.png" alt="">
+      </button>
+    </div>
+
+    <p id="tapHint" class="tap-hint">Tap to send Dua...</p>
+    <button id="page3Btn" onclick="nextPage(3)">Kuch meetha hojaye 🎂</button>
+
+  </section>
+
+  <!-- PAGE 4 -->
+  <section class="page" id="page4">
+
+    <div style="font-size: 3.5rem; margin-bottom: 5px; line-height: 1;">🎂</div>
+    <h1>Sweets khao, Madam g</h1>
+    <p>Sweet khanay k liye oss par tap karo 🤤</p>
+
+    <div class="sweets-row">
+      <div class="sweet-item" id="sweet1" onclick="popSweet(this)">
+        <img src="assets/images/sweet1.png" alt="sweet">
+      </div>
+      <div class="sweet-item" id="sweet2" onclick="popSweet(this)">
+        <img src="assets/images/sweet2.png" alt="sweet">
+      </div>
+      <div class="sweet-item" id="sweet3" onclick="popSweet(this)">
+        <img src="assets/images/sweet3.png" alt="sweet">
+      </div>
+    </div>
+
+    <button id="page4Btn" onclick="nextPage(4)">Scan my Cuteness 😏</button>
+
+  </section>
+
+  <!-- PAGE 5 -->
+  <section class="page" id="page5">
+
+    <div class="scan-container" id="scanContainer" onclick="startScan()">
+      <div class="scan-panel" id="scanPanel">
+
+        <p class="scan-tap-text" id="scanTapText">Tap to Scan</p>
+
+        <div id="scanScanningGroup" class="hidden">
+          <p class="scan-scanning-text">Scanning...</p>
+          <div class="scan-bar-wrap" id="scanBarWrap">
+            <div class="scan-bar-fill" id="scanBarFill"></div>
+          </div>
+        </div>
+
+        <div class="scan-result hidden" id="scanResult">
+          <p class="scan-warning">WARNING:</p>
+          <p class="scan-caption">too much cuteness</p>
+        </div>
+
+      </div>
+      <video id="scanVideo" playsinline muted>
+        <source src="assets/videos/video5.webm" type="video/webm">
+      </video>
+    </div>
+
+    <button id="page5Btn" onclick="nextPage(5)">Read the letter ✉️</button>
+
+  </section>
+
+  <!-- PAGE 6 -->
+  <section class="page" id="page6">
+  
+    <img src="assets/images/top-image.png" class="page6-top-img">
+
+    <!-- floating stars layer -->
+    <div class="stars-layer" id="starsLayer6"></div>
+
+    <!-- ENVELOPE (shown first) -->
+    <div class="envelope-scene" id="envScene" onclick="openEnvelope()">
+      <div class="envelope-body"></div>
+      <div class="envelope-flap" id="envFlap"></div>
+      <div class="wax-seal" id="waxSeal">✦</div>
+    </div>
+    <p class="tap-hint-env" id="envHint">Tap to open 💌</p>
+
+    <!-- LETTER (hidden until envelope opens) -->
+    <div class="letter-wrap" id="letterWrap">
+      <div class="letter-paper">
+        <div class="letter-date">Eid ul-Adha, 2026</div>
+        <div class="letter-salutation">Dear, Sania,</div>
+        <div class="letter-body">
+          <p>Madam g, aapko shayad idea bhi nahi hai k aap ny mujhy kitna lucky insaan bana diya hai meri life mei aa k 😊</p>
+          <p>Allah Kary yh Eid aap k liye dheer saari kushiyan lai karr aye. Aur aap zindagi mai dheer saari success dekho 😎</p>
+          <p>Bohat bohat Eid Mubarak aapko 🎉. Stay happy, Stay blessed, Stay mine. 😁</p>
+        </div>
+        <div class="letter-sign">
+          With love,<br>Mubeen Amir 💛
+        </div>
+      </div>
+    </div>
+
+  <!-- ADD THIS -->
+  <a href="https://youtube.com/shorts/gFjfDcGdDCE?feature=share" target="_blank" class="watch-btn">
+    Watch my beauty ✨
+  </a>
+
+</div>
+
+  </section>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+
+</body>
+</html>

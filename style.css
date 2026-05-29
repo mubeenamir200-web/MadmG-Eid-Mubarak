@@ -1,0 +1,1393 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: #111827;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+/* Background Glow */
+body::before {
+  display: none;
+}
+
+.star-bg {
+  position: fixed;
+  border-radius: 50%;
+  background: white;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  animation: popStar var(--dur) ease-in-out var(--delay) infinite;
+}
+
+@keyframes popStar {
+  0%   { transform: scale(0);   opacity: 0;    }
+  20%  { transform: scale(1.3); opacity: 1;    }
+  50%  { transform: scale(1);   opacity: 0.85; }
+  80%  { transform: scale(1.1); opacity: 0.6;  }
+  100% { transform: scale(0);   opacity: 0;    }
+}
+
+/* Pages */
+.page {
+  position: absolute;
+  inset: 0;
+
+  display: none;
+  flex-direction: column;
+  justify-content: safe center;
+  align-items: center;
+
+  text-align: center;
+  padding: 25px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  animation: fadeIn 0.7s ease;
+}
+
+.page.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Heading */
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 3rem;
+  color: #ffd54a;
+  margin-bottom: 20px;
+}
+
+/* Paragraph */
+p {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+/* Button */
+button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #ffd54a, #ffb300);
+  color: #111;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  box-shadow: 0 10px 25px rgba(255,193,7,0.25);
+}
+
+button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 15px 35px rgba(255,193,7,0.4);
+}
+
+/* ========================= */
+/* 🌥 CLOUD AREA */
+/* ========================= */
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 420px;
+
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+
+  margin-top: 20px;
+}
+
+/* Cloud container */
+.item {
+  position: absolute;
+}
+
+/* Cloud image */
+.cloud {
+  width: 200px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Cloud exit animation */
+.item.revealed .cloud {
+  transform: translateY(-220px);
+  opacity: 0;
+}
+
+/* ========================= */
+/* 🖼 REVEAL IMAGE */
+/* ========================= */
+
+.reveal-img {
+  position: fixed;
+
+  left: 50%;
+  top: 50%;
+
+  z-index: 50;
+
+  /* CHANGE SIZE HERE */
+  width: 420px;
+  max-width: 85vw;
+  height: auto;
+
+  object-fit: contain;
+  object-position: center;
+
+  border-radius: 0;
+  background: transparent;
+
+  /* DROP SHADOW */
+  filter: drop-shadow(0 22px 45px rgba(0,0,0,0.55));
+
+  opacity: 0;
+  pointer-events: none;
+
+  transform: translate(-50%, -50%) scale(0.4);
+
+  transition:
+    transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.8s ease;
+}
+
+.reveal-img.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ========================= */
+/* ✨ PAGE 1 TEXT ANIMATION */
+/* ========================= */
+
+.page1-line {
+  opacity: 0;
+  filter: blur(8px);
+}
+
+/* HEADING */
+
+#page1Emoji {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#page1Emoji.show {
+  animation: page1SlideDown 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes page1SlideDown {
+  0%   { opacity: 0; transform: translateY(-40px); filter: blur(6px); }
+  100% { opacity: 1; transform: translateY(0);     filter: blur(0px); }
+}
+
+h1.page1-line {
+  animation:
+    page1FadeUp 1s ease forwards;
+  animation-delay: 1s;
+}
+
+/* PARAGRAPH */
+p.page1-line {
+  animation:
+    page1FadeUp 1s ease forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes page1FadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+    filter: blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* Fade OUT when reveal happens */
+.page1-line.hide {
+  animation: page1FadeOut 0.9s ease forwards !important;
+}
+
+@keyframes page1FadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-35px);
+    filter: blur(8px);
+  }
+}
+
+/* Page 1 Next button */
+#page1Btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#page1Btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ========================= */
+/* 🎬 PAGE 2 VIDEO STAGE */
+/* ========================= */
+
+.video-stage {
+  width: 100%;
+  max-width: 800px;
+  background: transparent;
+  cursor: pointer;
+  margin-bottom: 30px;
+  
+  /* Removes the tap highlight and focus border on mobile */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.video-stage video {
+  width: 100%;
+  display: block;
+  background: transparent;
+  
+  /* Just to be safe, removes it from the video elements too */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.video-stage video.hidden {
+  display: none;
+}
+
+#page2Btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#page2Btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ========================= */
+/* 👐 PAGE 3 TAP BUTTON */
+/* ========================= */
+
+.tap-wrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 10px auto 20px;
+}
+
+.progress-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-track {
+  fill: rgba(255, 255, 255, 0.05);
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 6;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: #2dd4bf;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 376.99;
+  stroke-dashoffset: 376.99;
+  transition: stroke-dashoffset 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tap-btn {
+  position: absolute;
+  inset: 30px;
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 40% 35%, #4ade80, #16a34a);
+  border: none;
+  cursor: pointer;
+
+  font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 0 0 4px rgba(45, 212, 191, 0.2),
+    0 8px 30px rgba(0, 0, 0, 0.4);
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 5;
+}
+
+.tap-btn:active {
+  transform: scale(0.93);
+}
+
+.tap-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+@keyframes tapPulse {
+  0%   { box-shadow: 0 0 0 4px rgba(45,212,191,0.2), 0 8px 30px rgba(0,0,0,0.4); }
+  50%  { box-shadow: 0 0 0 14px rgba(45,212,191,0.15), 0 8px 30px rgba(0,0,0,0.4); }
+  100% { box-shadow: 0 0 0 4px rgba(45,212,191,0.2), 0 8px 30px rgba(0,0,0,0.4); }
+}
+
+.tap-btn.tap-pulse {
+  animation: tapPulse 0.4s ease;
+}
+
+.tap-hint {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 20px;
+  transition: opacity 0.4s ease;
+}
+
+#page3Btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#page3Btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ========================= */
+/* 👐 PAGE 3 HEADING */
+/* ========================= */
+
+.page3-title {
+  transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+}
+
+.page3-title.hide {
+  opacity: 0 !important;
+  transform: translateY(-30px);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+/* ========================= */
+/* ✨ PAGE 3 FLOATING WORDS */
+/* ========================= */
+
+.floating-word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #ffd54a;
+  
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+  z-index: 10;
+  
+  /* 1.8 seconds complete lifecycle animation */
+  animation: floatUpWords 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes floatUpWords {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(0) scale(0.5);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(-25px) scale(1.1);
+  }
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    /* Uses the calculated random inline variable --x-offset to drift wide left/right near the top boundary */
+    transform: translate(calc(-50% + var(--x-offset)), -340px) scale(0.85);
+  }
+}
+
+/* ========================= */
+/* 🍬 PAGE 4 SWEETS */
+/* ========================= */
+
+/* --- Sweets Entrance Animations --- */
+#page4.active #sweet1 {
+  opacity: 0;
+  animation: sweetSlideRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.2s;
+}
+
+#page4.active #sweet2 {
+  opacity: 0;
+  animation: sweetScaleUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.4s;
+}
+
+#page4.active #sweet3 {
+  opacity: 0;
+  animation: sweetSlideLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes sweetSlideRight {
+  0% { transform: translateX(-120px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes sweetScaleUp {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes sweetSlideLeft {
+  0% { transform: translateX(120px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.sweets-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin: 10px auto 30px;
+}
+
+.sweet-item {
+  position: relative; /* 🌟 ADDED: Keeps the floating words anchored exactly above the clicked sweet */
+  width: 90px;
+  height: 90px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease;
+}
+
+.sweet-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  transform-origin: center;
+  transition: transform 0.15s ease;
+}
+
+@keyframes sweetPop {
+  0%   { transform: scale(1); opacity: 1; }
+  40%  { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.sweet-item.popped {
+  pointer-events: none;
+}
+
+.sweet-item.popped img {
+  animation: sweetPop 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+}
+
+#page4Btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#page4Btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 🌟 NEW: Floating pop up word layout rules */
+.sweet-pop-word {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #2dd4bf; /* Clean, vibrant teal color */
+  
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 20;
+  
+  animation: sweetWordUp 1.2s ease-out forwards;
+}
+
+/* 🌟 NEW: Low-height upward drift so it never hits the heading/paragraphs */
+@keyframes sweetWordUp {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(0) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(-10px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    /* Controlled low finish line (-40px) ensuring no overlap layout problems */
+    transform: translate(-50%, -50%) translateY(-40px) scale(0.9);
+  }
+}
+
+/* ========================= */
+/* 🔬 PAGE 5 SCAN           */
+/* ========================= */
+
+.scan-container {
+  position: relative;
+  display: flex;           /* 🌟 Added: Explicitly stacks panels inside the glass box */
+  flex-direction: column;  /* 🌟 Added: Puts text on top, video on bottom */
+  width: 100%;
+  max-width: 220px;        /* 🌟 Shrunken down from 340px to be perfectly compact */
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0 auto 30px;
+
+  /* Your original glass effect styling */
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* text panel above the video */
+/* Update the panel to be the anchor */
+.scan-panel {
+  position: relative; /* 🌟 ESSENTIAL: Anchors the absolute text blocks */
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 🌟 ADD THIS: Forces text groups to stack on top of each other */
+#scanTapText, 
+#scanScanningGroup, 
+#scanResult {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ✅ REPLACE WITH THIS: */
+.scan-container video {
+  width: 100%;
+  display: block;
+  object-fit: contain;    /* 🌟 Changes crop behavior so the whole video shrinks to fit entirely */
+  background: black;      /* 🌟 Optional: Adds a dark background fill if the video aspect ratio differs */
+}}
+
+/* "Tap to Scan" */
+.scan-tap-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;      /* 🌟 Slightly optimized size to match shrunken layout */
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  animation: pulseOpacity 1.8s ease-in-out infinite;
+  margin: 0;
+}
+
+@keyframes pulseOpacity {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* "Scanning..." */
+.scan-scanning-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #2dd4bf;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-shadow: 0 0 12px rgba(45, 212, 191, 0.6);
+}
+
+/* progress bar wrapper */
+.scan-bar-wrap {
+  width: 82%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+/* fill strip — animated via JS trigger */
+.scan-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2dd4bf, #ffd54a);
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.5);
+}
+
+@keyframes scanFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* result block */
+.scan-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;                /* 🌟 Tightened up layout gap */
+}
+
+.scan-warning {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.2rem;       /* 🌟 Optimized header font scale */
+  color: #ff6b6b;
+  text-shadow: 0 0 16px rgba(255, 107, 107, 0.55);
+  margin: 0;
+  animation: warningFlicker 0.5s ease;
+}
+
+@keyframes warningFlicker {
+  0%   { opacity: 0; transform: scale(1.2); }
+  40%  { opacity: 1; transform: scale(0.96); }
+  70%  { opacity: 0.7; }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.scan-caption {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.04em;
+  margin: 0;
+  animation: fadeInUp 0.5s ease 0.15s both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* page 5 next button — hidden until scan complete */
+#page5Btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#page5Btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 🌟 ADD THIS PIECE: */
+.hidden {
+visibility: hidden !important;
+pointer-events: none !important;
+}
+
+/* ========================= */
+/* 📱 MOBILE FIX */
+/* ========================= */
+
+@media (max-width: 600px) {
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .scene {
+    height: 320px;
+    margin-top: 10px;
+  }
+
+  .cloud {
+    width: 200px;
+  }
+
+  .item.revealed .cloud {
+    transform: translateY(-180px);
+  }
+
+  .video-stage {
+    max-width: 100%;
+  }
+
+  .reveal-img {
+    width: 300px;
+  }
+  
+  .floating-word {
+    font-size: 2rem;
+  }
+  
+  @keyframes floatUpWords {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) translateY(0) scale(0.5);
+    }
+    15% {
+      opacity: 1;
+      transform: translate(-50%, -50%) translateY(-20px) scale(1.1);
+    }
+    75% {
+      opacity: 0.9;
+    }
+    100% {
+      opacity: 0;
+      /* Slightly reduced upward reach on smaller mobile devices to retain visual spacing */
+      transform: translate(calc(-50% + var(--x-offset)), -260px) scale(0.85);
+    }
+  }
+}
+
+/* ========================= */
+/* ☁ PAGE 1 CLOUD ENTRANCE */
+/* ========================= */
+
+/* initial hidden state */
+#page1 .item {
+  opacity: 0;
+}
+
+/* cloud 1 */
+#page1 .item:nth-child(2) {
+  animation: cloudSlideLeft 0.9s ease forwards;
+  animation-delay: 0.4s;
+}
+
+/* cloud 2 */
+#page1 .item:nth-child(1) {
+  animation: cloudSlideRight 0.9s ease forwards;
+  animation-delay: 0s;
+}
+
+/* cloud 3 */
+#page1 .item:nth-child(4) {
+  animation: cloudSlideLeft 0.9s ease forwards;
+  animation-delay: 0.8s;
+}
+
+/* cloud 4 */
+#page1 .item:nth-child(3) {
+  animation: cloudSlideRight 0.9s ease forwards;
+  animation-delay: 0.6s;
+}
+
+/* slide from left */
+@keyframes cloudSlideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-180px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* slide from right */
+@keyframes cloudSlideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(180px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================= */
+/* 🎬 PAGE 2 HEADING */
+/* ========================= */
+
+.page2-title {
+  opacity: 0;
+  transform: translateY(30px);
+
+  animation: page2FadeUp 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes page2FadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* heading fade out */
+.page2-title.hide {
+  animation: page2FadeOut 0.7s ease forwards;
+}
+
+@keyframes page2FadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-30px);
+    filter: blur(6px);
+  }
+}
+
+/* ========================= */
+/* 📜 PAGE 2 PAPER NOTE */
+/* ========================= */
+
+.dua-paper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 320px;
+  max-width: 85vw;
+
+  padding: 28px 26px;
+
+  background: linear-gradient(180deg, #f5e6c8 0%, #ead7b1 100%);
+  color: #3b2a1a;
+
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35),
+              inset 0 0 25px rgba(255,255,255,0.25);
+
+  clip-path: polygon(
+    2% 4%, 8% 1%, 20% 3%, 32% 0%, 46% 2%, 61% 1%,
+    76% 4%, 92% 2%, 98% 6%, 99% 20%, 97% 36%, 100% 52%,
+    98% 68%, 100% 84%, 95% 97%, 79% 100%, 63% 97%,
+    48% 100%, 31% 97%, 16% 99%, 3% 94%, 0% 80%,
+    2% 63%, 0% 45%, 3% 28%
+  );
+
+  opacity: 0;
+  pointer-events: none;
+
+  /* START STATE */
+  transform:
+    translate(-50%, -50%)
+    translateY(80px)
+    scale(0.6)
+    rotate(-4deg);
+
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+
+  z-index: 10;
+}
+
+/* paper texture */
+.dua-paper::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  opacity: 0.08;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 3px
+    );
+
+  mix-blend-mode: multiply;
+
+  pointer-events: none;
+}
+
+/* text */
+.dua-paper p {
+  margin: 0;
+
+  font-family: 'Pacifico', cursive;
+  font-size: 1.3rem;
+  line-height: 1.8;
+
+  color: #4b3422;
+
+  text-align: center;
+}
+
+/* SHOW ANIMATION */
+.dua-paper.show {
+  opacity: 1;
+
+  /* END STATE */
+  transform:
+    translate(-50%, -50%)
+    translateY(0)
+    scale(1)
+    rotate(-2deg);
+}
+
+.page2-top {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 120px; /* gives space for heading + paper */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* ========================= */
+/* 💌 PAGE 6 — ENVELOPE     */
+/* ========================= */
+
+/* floating star background */
+.stars-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star6 {
+  position: absolute;
+  border-radius: 50%;
+  background: #ffd54a;
+  opacity: 0;
+  animation: starFloat6 3s ease-in-out infinite alternate;
+}
+
+@keyframes starFloat6 {
+  from { transform: translateY(0) scale(1);       opacity: 0.15; }
+  to   { transform: translateY(-14px) scale(1.4); opacity: 0.7;  }
+}
+
+/* envelope wrapper */
+.envelope-scene {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  cursor: pointer;
+  z-index: 1;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* envelope body */
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #fef3c7, #fde68a);
+  border-radius: 6px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* V-fold bottom seam */
+.envelope-body::before {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 90px;
+  background:
+    linear-gradient(to top right, #fcd34d 50%, transparent 50%),
+    linear-gradient(to top left,  #fcd34d 50%, transparent 50%);
+  background-size: 50% 100%, 50% 100%;
+  background-position: left, right;
+  background-repeat: no-repeat;
+  border-radius: 0 0 6px 6px;
+}
+
+/* side fold shading */
+.envelope-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom right, transparent 49.5%, rgba(0,0,0,0.05) 50%),
+    linear-gradient(to bottom left,  transparent 49.5%, rgba(0,0,0,0.05) 50%);
+  border-radius: 6px;
+}
+
+/* envelope flap */
+.envelope-flap {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 110px;
+  transform-origin: top center;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(160deg, #fef9e7, #fde68a);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+  z-index: 3;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope-flap.open {
+  transform: rotateX(180deg);
+}
+
+/* wax seal */
+.wax-seal {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px; height: 40px;
+  background: radial-gradient(circle at 38% 32%, #ef4444, #991b1b);
+  border-radius: 50%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #fee2e2;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.wax-seal.hide {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  pointer-events: none;
+}
+
+/* tap hint below envelope */
+.tap-hint-env {
+  margin-top: 16px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.45);
+  animation: pulseOpacity 1.8s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* ========================= */
+/* 💌 PAGE 6 — LETTER       */
+/* ========================= */
+
+.letter-wrap {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+  z-index: 1;
+}
+
+.letter-wrap.visible {
+  display: flex;
+  animation: letterRise 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes letterRise {
+  from { opacity: 0; transform: translateY(50px) scale(0.93); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+.letter-paper {
+  background: #fffdf4;
+  border-radius: 10px;
+  padding: 28px 26px 24px;
+  width: 100%;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 213, 74, 0.2);
+  position: relative;
+  color: #2d1f00;
+  text-align: left;
+}
+
+/* lined paper effect */
+.letter-paper::before {
+  content: "";
+  position: absolute;
+  inset: 72px 26px 24px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    rgba(253, 186, 116, 0.3) 27px,
+    rgba(253, 186, 116, 0.3) 28px
+  );
+  pointer-events: none;
+}
+
+.letter-date {
+  font-size: 0.72rem;
+  color: #a16207;
+  text-align: right;
+  margin-bottom: 12px;
+  font-style: italic;
+  font-family: 'Dancing Script', cursive;
+}
+
+.letter-salutation {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #92400e;
+  margin-bottom: 12px;
+}
+
+.letter-body {
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: #3d2c00;
+  margin-bottom: 18px;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  z-index: 1;
+}
+
+.letter-body p {
+  margin-bottom: 14px;
+}
+
+.letter-body p:last-child {
+  margin-bottom: 0;
+}
+
+.letter-sign {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #92400e;
+  text-align: right;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .envelope-scene {
+    width: 260px;
+    height: 165px;
+  }
+
+  .letter-paper {
+    padding: 22px 18px 20px;
+  }
+
+  .letter-body {
+    font-size: 0.84rem;
+  }
+}
+
+.page6-top-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+ max-height: 300px;
+  object-fit: contain;
+  object-position: top;
+  pointer-events: none;
+}
+
+.page6-top-img {
+  transition: opacity 0.8s ease;
+}
+
+.page6-top-img.fade-out {
+  opacity: 0;
+}
+
+.watch-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd54a, #ffb300);
+  color: #111;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(255,193,7,0.25);
+  transition: 0.3s ease;
+}
+
+.watch-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 15px 35px rgba(255,193,7,0.4);
+}
+
+.watch-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.watch-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ========================
+   PAGE 0: INTRO VIDEO
+   ======================== */
+#page0 {
+  background: transparent;
+  padding: 0;
+  overflow: hidden;
+}
+
+.video-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 📑 NEW: Shrinks precisely to the visual boundaries of your webm asset */
+.video-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#introVideo {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.play-hint {
+  position: absolute;
+  top: -100px;  /* 👈 Anchored exactly 20px from the top edge of the VIDEO graphic */
+  left: 50%;
+  transform: translateX(-50%); /* Keeps it perfectly centered horizontally */
+  width: max-content;
+  
+  font-size: 1.4rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 14px 28px;
+  border-radius: 50px;
+  pointer-events: none;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+  
+  /* Blends position centering shifts together with scaling transitions */
+  animation: pulseHint 1.6s infinite alternate ease-in-out;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* 📑 UPDATED: Retains horizontal alignment while running the pulse scale */
+@keyframes pulseHint {
+  0% {
+    transform: translateX(-50%) scale(0.96);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(-50%) scale(1.04);
+    opacity: 1;
+  }
+}
+
+.play-hint.fade-out {
+  animation: none !important;
+  opacity: 0;
+  transform: translateX(-50%) scale(0.9);
+  pointer-events: none;
+}
